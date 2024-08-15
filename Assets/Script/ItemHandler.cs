@@ -17,7 +17,7 @@ public class ItemHandler : MonoBehaviour
                 point1Item=other.GetComponent<Item>();
                 point1Item.transform.position=point1.position;
                 //point1Item.SellectItem();
-                FindObjectOfType<PlayerInput>().isInteracting = false;
+                FindObjectOfType<PlayerInput>().ClearInteractionItem();
                 Debug.Log("STAY1");
             }
             else if (point2Item == null && point1Item!=other.GetComponent<Item>())
@@ -26,7 +26,14 @@ public class ItemHandler : MonoBehaviour
                 point2Item =other.GetComponent<Item>();
                 point2Item.transform.position=point2.position;
                 FindObjectOfType<PlayerInput>().ClearInteractionItem();
-                point2Item.SellectItem();
+                //point2Item.SellectItem();
+            }
+        }
+        if (point1Item!=null && point2Item != null)
+        {
+            if (point1Item.Type==point2Item.Type)
+            {
+                MergeItems();
             }
         }
     }
@@ -43,5 +50,11 @@ public class ItemHandler : MonoBehaviour
                 point2Item=null;
             }
         }
+    }
+    private void MergeItems()
+    {
+        Destroy(point1Item.gameObject);
+        Destroy(point2Item.gameObject);
+        Debug.Log("Merged");
     }
 }
