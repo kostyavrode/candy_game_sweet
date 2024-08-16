@@ -7,6 +7,7 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private Item[] itemPrefabs;
     [SerializeField] private int itemCount=32;
     [SerializeField] private Transform spawnObjectTransform;
+    private bool isObjectsSpawned;
     private void Awake()
     {
         GameManager.onGameStateChange += CheckGameState;
@@ -22,6 +23,11 @@ public class ItemManager : MonoBehaviour
             case GameState.OFF:
                 break;
             case GameState.PLAYING:
+                if (!isObjectsSpawned)
+                {
+                    SpawnObjects();
+                        break;
+                }
                 break;
             case GameState.PAUSED:
                 break;
@@ -41,5 +47,6 @@ public class ItemManager : MonoBehaviour
             newItem = Instantiate(itemPrefabs[randomNum]);
             newItem.transform.position = spawnObjectTransform.position;
         }
+        isObjectsSpawned = true;
     }
 }
