@@ -33,8 +33,8 @@ public class UIManager : MonoBehaviour
                 break;
             case GameState.FINISHED:
                 bestScoreBar.text = gameInfoHandler.GetBestScore().ToString();
-                uiPanels[4].SetActive(true);
-                uiPanels[3].SetActive(false);
+                uiPanels[3].SetActive(true);
+                uiPanels[2].SetActive(false);
                 break;
             case GameState.END:
                 break;

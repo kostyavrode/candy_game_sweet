@@ -9,9 +9,14 @@ public class ItemHandler : MonoBehaviour
     [SerializeField] private Item point1Item;
     [SerializeField] private Item point2Item;
     private UIManager uiManager;
+    private ItemManager itemManager;
     private bool isMerged;
     private GameInfoHandler gameInfoHandler;
     private float timer;
+    private void Start()
+    {
+        itemManager=ServiceLocator.GetService<ItemManager>();
+    }
     private void Update()
     {
         if (isMerged)
@@ -83,6 +88,8 @@ public class ItemHandler : MonoBehaviour
         if (!isMerged)
         {
             isMerged = true;
+            itemManager.RemoveItem(point2Item);
+            itemManager.RemoveItem(point1Item);
             Destroy(point1Item.gameObject);
             Destroy(point2Item.gameObject);
             if (uiManager == null)

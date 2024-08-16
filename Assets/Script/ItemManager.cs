@@ -8,6 +8,7 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private int itemCount=32;
     [SerializeField] private Transform spawnObjectTransform;
     private bool isObjectsSpawned;
+    [SerializeField] private List<Item> spawnedItems;
     private void Awake()
     {
         GameManager.onGameStateChange += CheckGameState;
@@ -43,10 +44,24 @@ public class ItemManager : MonoBehaviour
         {
             int randomNum=Random.Range(0, itemPrefabs.Length);
             Item newItem=Instantiate(itemPrefabs[randomNum]);
+            spawnedItems.Add(newItem);
             newItem.transform.position=spawnObjectTransform.position;
             newItem = Instantiate(itemPrefabs[randomNum]);
+            spawnedItems.Add(newItem);
             newItem.transform.position = spawnObjectTransform.position;
         }
         isObjectsSpawned = true;
+    }
+    public void RemoveItem(Item item)
+    {
+        spawnedItems.Remove(item);
+        CheckSpawnedItems();
+    }
+    private void CheckSpawnedItems()
+    {
+        if (spawnedItems.Count==0)
+        {
+            ServiceLocator.GetService<GameManager>().FinishGame();
+        }
     }
 }
