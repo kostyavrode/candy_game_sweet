@@ -31,4 +31,8 @@ public class Item : MonoBehaviour
     {
         rb.useGravity = true;
     }
+    public void rbSetForce(float force,Vector3 direction)
+    {
+        rb.AddForce(direction*force);
+    }
 }

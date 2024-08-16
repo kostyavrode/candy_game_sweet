@@ -24,7 +24,7 @@ public class ItemHandler : MonoBehaviour
             }
         }
     }
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.tag=="item")
         {
@@ -50,6 +50,15 @@ public class ItemHandler : MonoBehaviour
             if (point1Item.Type==point2Item.Type && !isMerged)
             {
                 MergeItems();
+            }
+            else
+            {
+                point1Item.rbSetIsNotKinematic();
+                point2Item.rbSetIsNotKinematic();
+                point1Item.rbSetForce(200f, new Vector3(0, 0, -1));
+                point2Item.rbSetForce(200f, new Vector3(0, 0, -1));
+                point1Item = null;
+                point2Item = null;
             }
         }
     }
