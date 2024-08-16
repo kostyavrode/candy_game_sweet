@@ -41,6 +41,10 @@ public class GameInfoHandler : MonoBehaviour
             score = 0;
         }
     }
+    public void AddScore()
+    {
+        score++;
+    }
     public void AddMoney()
     {
         money++;

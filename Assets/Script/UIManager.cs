@@ -20,10 +20,6 @@ public class UIManager : MonoBehaviour
         ShowMoney();
         GameManager.onGameStateChange += CheckGameState;
     }
-    private void OnDisable()
-    {
-        
-    }
     private void CheckGameState(GameState state)
     {
         switch (state)

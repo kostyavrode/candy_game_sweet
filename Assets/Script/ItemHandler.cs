@@ -8,6 +8,22 @@ public class ItemHandler : MonoBehaviour
     [SerializeField] private Transform point2;
     [SerializeField] private Item point1Item;
     [SerializeField] private Item point2Item;
+    private UIManager uiManager;
+    private bool isMerged;
+    private GameInfoHandler gameInfoHandler;
+    private float timer;
+    private void Update()
+    {
+        if (isMerged)
+        {
+            timer += Time.deltaTime;
+            if (timer>1)
+            {
+                isMerged = false;
+                timer = 0;
+            }
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
         if (other.tag=="item")
@@ -15,8 +31,8 @@ public class ItemHandler : MonoBehaviour
             if (point1Item == null && point2Item!=other.GetComponent<Item>())
             {
                 point1Item=other.GetComponent<Item>();
+                point1Item.rbSetKinematic();
                 point1Item.transform.position=point1.position;
-                //point1Item.SellectItem();
                 FindObjectOfType<PlayerInput>().ClearInteractionItem();
                 Debug.Log("STAY1");
             }
@@ -24,14 +40,14 @@ public class ItemHandler : MonoBehaviour
             {
                 Debug.Log("STAY2");
                 point2Item =other.GetComponent<Item>();
+                point2Item.rbSetIsNotKinematic();
                 point2Item.transform.position=point2.position;
                 FindObjectOfType<PlayerInput>().ClearInteractionItem();
-                //point2Item.SellectItem();
             }
         }
         if (point1Item!=null && point2Item != null)
         {
-            if (point1Item.Type==point2Item.Type)
+            if (point1Item.Type==point2Item.Type && !isMerged)
             {
                 MergeItems();
             }
@@ -53,8 +69,18 @@ public class ItemHandler : MonoBehaviour
     }
     private void MergeItems()
     {
-        Destroy(point1Item.gameObject);
-        Destroy(point2Item.gameObject);
-        Debug.Log("Merged");
+        if (!isMerged)
+        {
+            isMerged = true;
+            Destroy(point1Item.gameObject);
+            Destroy(point2Item.gameObject);
+            if (uiManager == null)
+            {
+                uiManager = ServiceLocator.GetService<UIManager>();
+                gameInfoHandler = ServiceLocator.GetService<GameInfoHandler>();
+            }
+            gameInfoHandler.AddScore();
+            uiManager.ShowScore();
+        }
     }
 }
