@@ -24,12 +24,13 @@ public class Item : MonoBehaviour
     }
     public void rbSetKinematic()
     {
-        rb.isKinematic = true;
+        //rb.isKinematic = true;
         rb.useGravity = false;
+        rb.velocity= Vector3.zero;
     }
     public void rbSetIsNotKinematic()
     {
-        rb.isKinematic = false;
+        //rb.isKinematic = false;
         rb.useGravity = true;
     }
 }

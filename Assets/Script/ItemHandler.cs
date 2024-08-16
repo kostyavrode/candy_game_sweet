@@ -40,7 +40,7 @@ public class ItemHandler : MonoBehaviour
             {
                 Debug.Log("STAY2");
                 point2Item =other.GetComponent<Item>();
-                point2Item.rbSetIsNotKinematic();
+                point2Item.rbSetKinematic();
                 point2Item.transform.position=point2.position;
                 FindObjectOfType<PlayerInput>().ClearInteractionItem();
             }
@@ -59,10 +59,12 @@ public class ItemHandler : MonoBehaviour
         {
             if (other.GetComponent<Item>() == point1Item)
             {
+                point1Item.rbSetIsNotKinematic();
                 point1Item=null;
             }
             else if (other.GetComponent<Item>() == point2Item)
             {
+                point2Item.rbSetIsNotKinematic();
                 point2Item=null;
             }
         }
