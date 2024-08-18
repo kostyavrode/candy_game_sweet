@@ -51,6 +51,7 @@ public class ItemManager : MonoBehaviour
                 if (!isObjectsSpawned)
                 {
                     SpawnObjects();
+
                         break;
                 }
                 
@@ -60,6 +61,7 @@ public class ItemManager : MonoBehaviour
                 break;
             case GameState.FINISHED:
                 isGameStarted=false;
+                PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
                 break;
             case GameState.END:
                 break;

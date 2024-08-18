@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text scoreBar;
     [SerializeField] private TMP_Text bestScoreBar;
     [SerializeField] private TMP_Text timeBar;
+    [SerializeField] private TMP_Text levelBar;
     private GameManager gameManager;
     private GameInfoHandler gameInfoHandler;
     private AudioManager audioManager;
@@ -29,6 +30,7 @@ public class UIManager : MonoBehaviour
                 break;
             case GameState.PLAYING:
                 ShowScore();
+                ShowLevel();
                 break;
             case GameState.PAUSED:
                 break;
@@ -44,6 +46,11 @@ public class UIManager : MonoBehaviour
     public void ShowMoney()
     {
         moneyBar.text = gameInfoHandler.GetMoney().ToString();
+    }
+    public void ShowLevel()
+    {
+        int lvl = PlayerPrefs.GetInt("Level");
+        levelBar.text = "Level " + lvl;
     }
     public void ShowTime(string time)
     {
