@@ -37,6 +37,14 @@ public class ItemViewer : MonoBehaviour
         }
 
     }
+    public void Dissapear()
+    {
+        transform.DOScale(Vector3.zero, 0.3f).OnComplete(DestroyItem);
+    }
+    private void DestroyItem()
+    {
+        Destroy(gameObject);
+    }
     private void MeshFuck()
     {
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>();

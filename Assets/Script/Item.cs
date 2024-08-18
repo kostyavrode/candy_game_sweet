@@ -31,6 +31,10 @@ public class Item : MonoBehaviour
     {
         rb.useGravity = true;
     }
+    public void DissapearItem()
+    {
+        ItemViewer.Dissapear();
+    }
     public void rbSetForce(float force,Vector3 direction)
     {
         rb.AddForce(direction*force);

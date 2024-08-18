@@ -12,7 +12,9 @@ public class ItemHandler : MonoBehaviour
     private ItemManager itemManager;
     private bool isMerged;
     private GameInfoHandler gameInfoHandler;
-    private float timer;
+    private float mergeTimer;
+    private float gameTimer;
+    [SerializeField] private float gameTime=30f;
     private void Start()
     {
         itemManager=ServiceLocator.GetService<ItemManager>();
@@ -21,11 +23,12 @@ public class ItemHandler : MonoBehaviour
     {
         if (isMerged)
         {
-            timer += Time.deltaTime;
-            if (timer>1)
+            mergeTimer += Time.deltaTime;
+            uiManager.ShowTime(((int)Mathf.Round(mergeTimer)).ToString());
+            if (mergeTimer>1)
             {
                 isMerged = false;
-                timer = 0;
+                mergeTimer = 0;
             }
         }
     }
@@ -90,8 +93,10 @@ public class ItemHandler : MonoBehaviour
             isMerged = true;
             itemManager.RemoveItem(point2Item);
             itemManager.RemoveItem(point1Item);
-            Destroy(point1Item.gameObject);
-            Destroy(point2Item.gameObject);
+            point1Item.DissapearItem();
+            point2Item.DissapearItem();
+            //Destroy(point1Item.gameObject);
+            //Destroy(point2Item.gameObject);
             if (uiManager == null)
             {
                 uiManager = ServiceLocator.GetService<UIManager>();

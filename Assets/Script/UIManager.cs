@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TMP_Text moneyBar;
     [SerializeField] private TMP_Text scoreBar;
     [SerializeField] private TMP_Text bestScoreBar;
+    [SerializeField] private TMP_Text timeBar;
     private GameManager gameManager;
     private GameInfoHandler gameInfoHandler;
     private AudioManager audioManager;
@@ -43,6 +44,10 @@ public class UIManager : MonoBehaviour
     public void ShowMoney()
     {
         moneyBar.text = gameInfoHandler.GetMoney().ToString();
+    }
+    public void ShowTime(string time)
+    {
+        timeBar.text = time;
     }
     public void ShowScore()
     {

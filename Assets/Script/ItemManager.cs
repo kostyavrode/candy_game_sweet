@@ -9,9 +9,31 @@ public class ItemManager : MonoBehaviour
     [SerializeField] private Transform spawnObjectTransform;
     private bool isObjectsSpawned;
     [SerializeField] private List<Item> spawnedItems;
+    [SerializeField] private int gameTime = 30;
+    private UIManager uiManager;
+    private float gameTimer;
+    private bool isGameStarted;
+    private GameState state;
     private void Awake()
     {
         GameManager.onGameStateChange += CheckGameState;
+    }
+    private void Start()
+    {
+        uiManager = ServiceLocator.GetService<UIManager>();
+    }
+    private void Update()
+    {
+        if (isGameStarted)
+        {
+            Debug.Log("Update");
+            gameTimer += Time.deltaTime;
+            uiManager.ShowTime(((int)Mathf.Round(gameTimer)).ToString());
+            if (gameTimer>gameTime && state==GameState.PLAYING)
+            {
+                ServiceLocator.GetService<GameManager>().FinishGame();
+            }
+        }
     }
     private void OnDisable()
     {
@@ -19,20 +41,25 @@ public class ItemManager : MonoBehaviour
     }
     private void CheckGameState(GameState state)
     {
+        this.state = state;
         switch (state)
         {
             case GameState.OFF:
                 break;
             case GameState.PLAYING:
+                isGameStarted = true;
                 if (!isObjectsSpawned)
                 {
                     SpawnObjects();
                         break;
                 }
+                
                 break;
             case GameState.PAUSED:
+                isGameStarted=false;
                 break;
             case GameState.FINISHED:
+                isGameStarted=false;
                 break;
             case GameState.END:
                 break;
