@@ -12,4 +12,8 @@ public class ServiceLocatorInstaller : MonoBehaviour
             ServiceLocator.AddService(service);
         }
     }
+    private void OnDestroy()
+    {
+        ServiceLocator.ClearServices();
+    }
 }

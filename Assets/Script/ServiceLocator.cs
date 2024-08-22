@@ -20,4 +20,13 @@ public static class ServiceLocator
     {
         services.Add(service);
     }
+    public static void RemoveService(object service)
+    {
+        services.Remove(service);
+    }
+    public static void ClearServices()
+    {
+
+    services.Clear(); 
+    }
 }
