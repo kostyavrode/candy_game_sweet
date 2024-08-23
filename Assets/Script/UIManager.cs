@@ -8,7 +8,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject[] uiPanels;
     [SerializeField] private TMP_Text moneyBar;
     [SerializeField] private TMP_Text scoreBar;
-    [SerializeField] private TMP_Text bestScoreBar;
+    [SerializeField] private TMP_Text bestScoreBarLose;
+    [SerializeField] private TMP_Text scoreBarWin;
+    [SerializeField] private TMP_Text timeWin;
+    [SerializeField] private TMP_Text timeLose;
     [SerializeField] private TMP_Text timeBar;
     [SerializeField] private TMP_Text levelBar;
     private GameManager gameManager;
@@ -39,13 +42,27 @@ public class UIManager : MonoBehaviour
             case GameState.PAUSED:
                 break;
             case GameState.FINISHED:
-                bestScoreBar.text = gameInfoHandler.GetBestScore().ToString();
-                uiPanels[3].SetActive(true);
-                uiPanels[2].SetActive(false);
+                //bestScoreBar.text = gameInfoHandler.GetBestScore().ToString();
+                //uiPanels[3].SetActive(true);
+                //uiPanels[2].SetActive(false);
                 break;
             case GameState.END:
                 break;
         }
+    }
+    public void ShowWinMenu()
+    {
+        uiPanels[4].SetActive(true);
+        uiPanels[2].SetActive(false);
+        timeWin.text = "00:"+timeBar.text;
+        scoreBarWin.text = scoreBar.text;
+    }
+    public void ShowLoseMenu()
+    {
+        uiPanels[3].SetActive(true);
+        uiPanels[2].SetActive(false);
+        bestScoreBarLose.text = scoreBar.text;
+        //timeLose.text= timeBar.text;
     }
     public void ShowMoney()
     {
@@ -58,7 +75,7 @@ public class UIManager : MonoBehaviour
     }
     public void ShowTime(string time)
     {
-        timeBar.text = time;
+        timeBar.text = "00:"+time;
     }
     public void ShowScore()
     {
@@ -66,7 +83,7 @@ public class UIManager : MonoBehaviour
     }
     public void ShowBestScore()
     {
-        bestScoreBar.text=gameInfoHandler.GetBestScore().ToString();
+        bestScoreBarLose.text=gameInfoHandler.GetBestScore().ToString();
     }
     public void StartButton()
     {

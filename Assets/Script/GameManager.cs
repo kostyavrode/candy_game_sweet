@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public void FinishGame()
     {
         ChangeGameState(GameState.FINISHED);
+        PlayerPrefs.SetInt("LevelDone" + PlayerPrefs.GetInt("LevelDone"), PlayerPrefs.GetInt("LevelDone"));
     }
     public void EndGame()
     {

@@ -32,6 +32,7 @@ public class ItemManager : MonoBehaviour
             if (gameTimer>gameTime && state==GameState.PLAYING)
             {
                 ServiceLocator.GetService<GameManager>().FinishGame();
+                uiManager.ShowLoseMenu();
             }
         }
     }
@@ -61,7 +62,7 @@ public class ItemManager : MonoBehaviour
                 break;
             case GameState.FINISHED:
                 isGameStarted=false;
-                PlayerPrefs.SetInt("Level", PlayerPrefs.GetInt("Level") + 1);
+                PlayerPrefs.SetInt("LevelDone", PlayerPrefs.GetInt("LevelDone") + 1);
                 break;
             case GameState.END:
                 break;
@@ -91,6 +92,7 @@ public class ItemManager : MonoBehaviour
         if (spawnedItems.Count==0)
         {
             ServiceLocator.GetService<GameManager>().FinishGame();
+            ServiceLocator.GetService<UIManager>().ShowWinMenu();
         }
     }
 }
