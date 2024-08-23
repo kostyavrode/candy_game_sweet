@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
     {
         uiPanels[4].SetActive(true);
         uiPanels[2].SetActive(false);
-        timeWin.text = "00:"+timeBar.text;
+        timeWin.text = timeBar.text;
         scoreBarWin.text = scoreBar.text;
     }
     public void ShowLoseMenu()
