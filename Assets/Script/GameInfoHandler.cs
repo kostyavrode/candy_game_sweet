@@ -82,7 +82,10 @@ public class GameInfoHandler : MonoBehaviour
         }
         return bestScore;
     }
+    public void SetScoreToZero()
+    {
 
+    score = 0; }
     private void CheckGameState(GameState state)
     {
         switch(state)
@@ -97,6 +100,8 @@ public class GameInfoHandler : MonoBehaviour
                 isNeedToCount = false;
                 break;
             case GameState.FINISHED:
+                PlayerPrefs.SetInt("Money",PlayerPrefs.GetInt("Money")+score*2);
+                PlayerPrefs.Save();
                 isNeedToCount= false;
                 break;
             case GameState.END:

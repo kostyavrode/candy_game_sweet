@@ -29,9 +29,10 @@ public class VibrationManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (isNeedToVibrate)
+        if (isNeedToVibrate && state==VibroState.ON)
         {
             Handheld.Vibrate();
+            Debug.Log("Vibrate");
         }
     }
     public void ChangeVibroState(VibroState state)

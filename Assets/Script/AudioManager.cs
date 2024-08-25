@@ -9,11 +9,23 @@ public enum SoundState
 public class AudioManager : MonoBehaviour
 {
     [SerializeField] private AudioSource mainSource;
+    [SerializeField] private AudioSource mainSourcePrefab;
     [SerializeField] private AudioSource[] otherSources;
     private SoundState soundState;
     private SoundState musicState;
     public void Awake()
     {
+        if (mainSource == null)
+        {
+            try
+            {
+                mainSource = GameObject.FindGameObjectWithTag("audio").GetComponent<AudioSource>();
+            }
+            catch
+            {
+                mainSource = Instantiate(mainSourcePrefab);
+            }
+        }
         if (!PlayerPrefs.HasKey("SoundState"))
         {
             PlayerPrefs.SetInt("SoundState", 1);

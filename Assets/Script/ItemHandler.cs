@@ -24,7 +24,7 @@ public class ItemHandler : MonoBehaviour
         if (isMerged)
         {
             mergeTimer += Time.deltaTime;
-            uiManager.ShowTime(((int)Mathf.Round(mergeTimer)).ToString());
+            //uiManager.ShowTime(((int)Mathf.Round(mergeTimer)).ToString());
             if (mergeTimer>1)
             {
                 isMerged = false;
@@ -90,6 +90,13 @@ public class ItemHandler : MonoBehaviour
     {
         if (!isMerged)
         {
+            if (uiManager == null)
+            {
+                uiManager = ServiceLocator.GetService<UIManager>();
+                gameInfoHandler = ServiceLocator.GetService<GameInfoHandler>();
+            }
+            gameInfoHandler.AddScore();
+            ServiceLocator.GetService<VibrationManager>().MakeVibration(0.5f);
             isMerged = true;
             itemManager.RemoveItem(point2Item);
             itemManager.RemoveItem(point1Item);
@@ -97,13 +104,10 @@ public class ItemHandler : MonoBehaviour
             point2Item.DissapearItem();
             //Destroy(point1Item.gameObject);
             //Destroy(point2Item.gameObject);
-            if (uiManager == null)
-            {
-                uiManager = ServiceLocator.GetService<UIManager>();
-                gameInfoHandler = ServiceLocator.GetService<GameInfoHandler>();
-            }
-            gameInfoHandler.AddScore();
+
+            
             uiManager.ShowScore();
+            //ServiceLocator.GetService<GameInfoHandler>().SetScoreToZero();
         }
     }
 }

@@ -42,6 +42,7 @@ public class Buying : MonoBehaviour
             PlayerPrefs.SetString("Buy1", "-");
             PlayerPrefs.Save();
             ShowMoney();
+            CheckBuying();
         }
     }
     public void Buying2()
@@ -52,6 +53,7 @@ public class Buying : MonoBehaviour
             PlayerPrefs.SetString("Buy2", "-");
             PlayerPrefs.Save();
             ShowMoney();
+            CheckBuying();
         }
     }
 }

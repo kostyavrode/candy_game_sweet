@@ -56,12 +56,17 @@ public class UIManager : MonoBehaviour
         uiPanels[2].SetActive(false);
         timeWin.text = timeBar.text;
         scoreBarWin.text = scoreBar.text;
+        ShowScore();
+        ServiceLocator.GetService<GameInfoHandler>().SetScoreToZero();
+        //scoreBar.text = scoreBarWin.text;
     }
     public void ShowLoseMenu()
     {
         uiPanels[3].SetActive(true);
         uiPanels[2].SetActive(false);
         bestScoreBarLose.text = scoreBar.text;
+        ShowScore();
+        ServiceLocator.GetService<GameInfoHandler>().SetScoreToZero();
         //timeLose.text= timeBar.text;
     }
     public void ShowMoney()
@@ -124,5 +129,9 @@ public class UIManager : MonoBehaviour
     public void VibroOffButton()
     {
         ServiceLocator.GetService<VibrationManager>().ChangeVibroState(VibroState.OFF);
+    }
+    public void CloseAppButton()
+    {
+        Application.Quit();
     }
 }

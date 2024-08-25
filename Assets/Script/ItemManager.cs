@@ -21,6 +21,10 @@ public class ItemManager : MonoBehaviour
     private void Start()
     {
         uiManager = ServiceLocator.GetService<UIManager>();
+        if (PlayerPrefs.HasKey("Buy1"))
+        {
+            gameTime *= 2;
+        }
     }
     private void Update()
     {
@@ -62,6 +66,7 @@ public class ItemManager : MonoBehaviour
                 break;
             case GameState.FINISHED:
                 isGameStarted=false;
+                isObjectsSpawned=false;
                 PlayerPrefs.SetInt("LevelDone", PlayerPrefs.GetInt("LevelDone") + 1);
                 break;
             case GameState.END:
@@ -81,6 +86,15 @@ public class ItemManager : MonoBehaviour
             newItem.transform.position = spawnObjectTransform.position;
         }
         isObjectsSpawned = true;
+        gameTimer = 0;
+        if (PlayerPrefs.HasKey("Buy1"))
+        {
+            gameTime=60;
+        }
+        else
+        {
+            gameTime = 30;
+        }
     }
     public void RemoveItem(Item item)
     {
@@ -93,6 +107,7 @@ public class ItemManager : MonoBehaviour
         {
             ServiceLocator.GetService<GameManager>().FinishGame();
             ServiceLocator.GetService<UIManager>().ShowWinMenu();
+            
         }
     }
 }
